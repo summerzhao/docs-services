@@ -24,9 +24,8 @@ brokers are upgraded.
     </thead>
     <tbody>
       <tr>
-        <td><a href="api.html">2.5</a></td>
+        <td><a href="api.html">2.4</a></td>
         <td>
-          <a href="api-v2.4.html">2.4</a><br/>
           <a href="api-v2.3.html">2.3</a><br/>
           <a href="api-v2.2.html">2.2</a><br/>
           <a href="api-v2.1.html">2.1</a><br/>
@@ -49,18 +48,17 @@ added to enable support for new features.
 These fields must be optional and should be ignored by clients and servers
 that do not understand them.
 
-### <a id='api-changes-since-v2-4'></a>Changes Since v2.4 ###
+### <a id='api-changes-since-v2-3'></a>Changes Since v2.3 ###
 
-The key change from v2.4 to v2.5 is support for creating service binding without application GUID when user create service keys.
-GUID of the application that you want to bind your service to, will be included when users bind applications to service instances; will not be included when users create service keys.
+The key change from v2.3 to v2.4 is support for users to change the service plan for a specified service instance.
 
 ## <a id='dependencies'></a>Dependencies ##
 
-v2.5 of the services API has been supported since:
+v2.4 of the services API has been supported since:
 
-* [Final build <TO_BE_ADDED>](https://github.com/cloudfoundry/cf-release/tree/<TO_BE_ADDED>) of [cf-release](https://github.com/cloudfoundry/cf-release/commit/<TO_BE_ADDED>)
-* v<TO_BE_ADDED> of the [Cloud Controller API](https://github.com/cloudfoundry/cloud_controller_ng/commit/<TO_BE_ADDED>)
-* v<TO_BE_ADDED> of the Cloud Foundry [Command Line Interface (CLI)](https://github.com/cloudfoundry/cli)
+* [Final build 192](https://github.com/cloudfoundry/cf-release/tree/v192) of [cf-release](https://github.com/cloudfoundry/cf-release/commit/2b0309bde9880f7acb039ec9676f992254ce62d9)
+* v2.17 of the [Cloud Controller API](https://github.com/cloudfoundry/cloud_controller_ng/commit/f8b31ecce5c2740d60818ac6cc8a9299120e3216)
+* v6.7 of the Cloud Foundry [Command Line Interface (CLI)](https://github.com/cloudfoundry/cli)
 
 ## <a id='api-overview'></a>API Overview ##
 
@@ -94,7 +92,7 @@ The version numbers are in the format `MAJOR.MINOR`, using semantic versioning
 such that 2.9 comes before 2.10.
 An example of this header as of publication time is:
 
-`X-Broker-Api-Version: 2.5`
+`X-Broker-Api-Version: 2.4`
 
 ## <a id='authentication'></a>Authentication ##
 
@@ -578,9 +576,9 @@ the resource it creates.</p>
   <td>ID of the plan from the catalog. While not strictly necessary, some brokers might make use of this ID.</td>
 </tr>
 <tr>
-  <td>app_guid</td>
+  <td>app_guid*</td>
   <td>string</td>
-  <td>GUID of the application that you want to bind your service to. Will be included when users bind applications to service instances. Will not be included when users create service keys.</td>
+  <td>GUID of the application that you want to bind your service to.</td>
 </tr>
 </tbody>
 </table>
@@ -628,10 +626,6 @@ In this case, `instance_id` refers to the id of an existing service instance in 
 <tr>
   <td>409 Conflict</td>
   <td>Should be returned if the requested binding already exists. The expected response body is "{}", though the description field can be used to return a user-facing error message, as described in <a href="#broker-errors">Broker Errors</a>.</td>
-</tr>
-<tr>
-  <td>422 Unprocessable Entity</td>
-  <td>Should be returned if the broker requires that <cod>app_guid</code> be included in the request body. The expected response body is: <code>{ "error": "AsyncRequired", "description": "This service supports generation of credentials through binding an application only." }</code></td>
 </tr>
 </tbody>
 </table>

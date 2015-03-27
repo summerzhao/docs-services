@@ -2,6 +2,11 @@
 title: v2 API Change Log
 ---
 
+## 2015-04-<TO_BE_ADDED> ##
+Update Service Binding section to support creating service binding without application GUID when user create service keys.
+
+GUID of the application that you want to bind your service to. Will be included when users bind applications to service instances. Will not be included when users create service keys.
+
 ## 2015-01-14 ##
 Updated Orphans section of the API to document the new behavior of reducing likelihood of orphaned instances in cf-release v196.
 
